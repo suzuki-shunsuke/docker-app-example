@@ -1,0 +1,58 @@
+#!/bin/bash
+#
+# このスクリプト中の関数は全て
+# カレントディレクトリがリポジトリのルートディレクトリの状態で呼び出されることと、
+# source_script/utilをsourceしていることを前提としている。
+
+set -e
+
+REGISTRY=""
+D_USER=suzukishunsuke
+IMAGE=docker-gulp-example
+
+if [ ${#REGISTRY} -ne 0 ]; then
+  if [ ${#D_USER} -ne 0 ]; then
+    IMAGE_PATH=$REGISTRY/$D_USER/$IMAGE
+  else
+    IMAGE_PATH=$REGISTRY/$IMAGE
+  fi
+else
+  if [ ${#D_USER} -ne 0 ]; then
+    IMAGE_PATH=$D_USER/$IMAGE
+  else
+    IMAGE_PATH=$IMAGE
+  fi
+fi
+
+build() {
+  # docker build
+  if [ $# -ne 1 ]; then
+    echo "Usage: build <TAG>"
+    exit 1
+  fi
+
+  check_ap_env
+
+  TAG=$1
+  
+  erun docker build -f $AP_ENV/Dockerfile -t $IMAGE_PATH:${AP_ENV}-$TAG .
+}
+
+list() {
+  # docker images
+  check_ap_env
+  erun docker images $IMAGE_PATH:${AP_ENV}-*
+}
+
+push() {
+  # docker push
+  if [ $# -ne 1 ]; then
+    echo "Usage: push <TAG>"
+    exit 1
+  fi
+  check_ap_env
+
+  TAG=$1
+
+  erun docker push $IMAGE_PATH:${AP_ENV}-$TAG
+}

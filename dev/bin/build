@@ -2,16 +2,9 @@
 
 set -e
 
-cd `dirname $0`/..
+cd `dirname $0`/../..
 
-if [ $# -ne 1 ]; then
-  echo "Usage: build <TAG>"
-  exit 1
-fi
+source source_script/docker-common
+source source_script/util
 
-TAG=$1
-
-source ../bin/_docker-common
-source ../bin/_util
-
-erun docker build -f Dockerfile -t $IMAGE_PATH:dev-$TAG ..
+build $@
