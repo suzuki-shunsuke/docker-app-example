@@ -4,5 +4,7 @@ set -e
 
 WORKDIR=`dirname $0`/..
 
-pip-compile requirements.in
+CHANGE_FILE=$1
+
+pip-compile $CHANGE_FILE
 pip-sync requirements.dev.txt requirements.txt

@@ -7,6 +7,6 @@ services:
     env_file:
     - env_files/ap
     volumes:
-    - ./:/usr/src/app
-    command: bash /usr/src/app/dbin/start
+    - .:/usr/src/app
+    command: bash /usr/src/app/docker_bin/start
     working_dir: /usr/src/app

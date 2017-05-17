@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+yarn
+
+docker-compose up -d
