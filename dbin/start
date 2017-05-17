@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+cd `dirname $0`/..
+
+pip install pip-tools
+pip-sync requirements.txt requirements.dev.txt
+
+python main.py

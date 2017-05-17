@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+WORKDIR=`dirname $0`/..
+
+pip-compile requirements.in
+pip-sync requirements.dev.txt requirements.txt

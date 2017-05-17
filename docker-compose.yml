@@ -1,0 +1,12 @@
+version: '3'
+services:
+  ap:
+    image: python:3.6.1
+    ports:
+    - "5000:5000"
+    env_file:
+    - env_files/ap
+    volumes:
+    - ./:/usr/src/app
+    command: bash /usr/src/app/dbin/start
+    working_dir: /usr/src/app

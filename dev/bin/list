@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+cd `dirname $0`/..
+
+source ../bin/_docker-common
+source ../bin/_util
+
+erun docker images $IMAGE_PATH:dev-*

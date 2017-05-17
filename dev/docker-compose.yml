@@ -1,0 +1,8 @@
+version: '3'
+services:
+  ap:
+    image: docker-app-example:0.1.0
+    ports:
+    - "5000:5000"
+    env_file:
+    - env_files/ap

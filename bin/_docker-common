@@ -1,0 +1,17 @@
+REGISTRY=""
+D_USER=suzukishunsuke
+IMAGE=docker-gulp-example
+
+if [ ${#REGISTRY} -ne 0 ]; then
+  if [ ${#D_USER} -ne 0 ]; then
+    IMAGE_PATH=$REGISTRY/$D_USER/$IMAGE
+  else
+    IMAGE_PATH=$REGISTRY/$IMAGE
+  fi
+else
+  if [ ${#D_USER} -ne 0 ]; then
+    IMAGE_PATH=$D_USER/$IMAGE
+  else
+    IMAGE_PATH=$IMAGE
+  fi
+fi

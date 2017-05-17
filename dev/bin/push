@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+cd `dirname $0`/..
+
+if [ $# -ne 1 ]; then
+  echo "Usage: push <TAG>"
+  exit 1
+fi
+
+TAG=$1
+
+source ../bin/_docker-common
+source ../bin/_util
+
+erun docker push $IMAGE_PATH:dev-$TAG
