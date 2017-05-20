@@ -1,0 +1,10 @@
+version: '3'
+services:
+  fabric:
+    image: python:3.6.1
+    env_file:
+    - env_file/fabric
+    volumes:
+    - .:/usr/src/app
+    - ../docker_bin:/docker_bin
+    working_dir: /usr/src/app
