@@ -2,40 +2,37 @@ const gulp = require('gulp');
 const path = require('path');
 const exec = require('child_process').exec;
 
-const echo_exec = (cmd, cb) => {
-  console.log(cmd);
+const echoExec = (cmd, cb) => {
+  console.log('==========');
+  console.log(`+ ${cmd}`);
+  console.log('==========');
   exec(cmd, cb);
 };
 
 
-const change_require = basename => {
-  echo_exec(`docker-compose exec ap docker_bin/pip-install ${suffix}`, (err, stdout, stderr) => {
-    stdout && console.log(`stdout: ${stdout}`);
-    stderr && console.log(`stderr: ${stderr}`);
-    err && console.log(`err: ${err}`);
-  });
-};
+const relativePath = p => path.relative(__dirname, p);
 
-
-gulp.task('watch-docker', () => {
+const watchPyDocker = serviceName => () => {
   gulp.watch([
-    'requirements.in', 'requirements.dev.in', 'docker-compose.yml',
-    'env_files/ap'
+    path.join(serviceName, 'requirements.in'),
+    path.join(serviceName, 'requirements.dev.in'),
+    path.join(serviceName, 'docker-compose.yml'),
+    path.join(serviceName, 'env_file', serviceName),
   ], event => {
     if (event.type == 'added' || event.type == 'changed') {
+      const targetPath = relativePath(event.path);
       const basename = path.basename(event.path);
-      if (basename === 'requirements.in' ||
-          basename === 'requirements.dev.in') {
 
-        echo_exec(`docker-compose exec ap docker_bin/pip-install ${basename}`, (err, stdout, stderr) => {
+      if (targetPath === path.join(serviceName, 'requirements.in') ||
+          targetPath === path.join(serviceName, 'requirements.dev.in')) {
+        echoExec(`docker-compose -f ${path.join(serviceName, 'docker-compose.yml')} exec ${serviceName} /docker_bin/pip-install ${basename}`, (err, stdout, stderr) => {
           stdout && console.log(`stdout: ${stdout}`);
           stderr && console.log(`stderr: ${stderr}`);
           err && console.log(`err: ${err}`);
         });
-      }
-      if (basename === 'docker-compose.yml' ||
-          basename === 'ap') {
-        echo_exec('docker-compose up -d ap', (err, stdout, stderr) => {
+      } else if (targetPath === path.join(serviceName, 'docker-compose.yml') ||
+          targetPath === path.join(serviceName, 'env_file', serviceName)) {
+        echoExec(`docker-compose -f ${path.join(serviceName, 'docker-compose.yml')} up -d ${serviceName}`, (err, stdout, stderr) => {
           stdout && console.log(`stdout: ${stdout}`);
           stderr && console.log(`stderr: ${stderr}`);
           err && console.log(`err: ${err}`);
@@ -43,6 +40,9 @@ gulp.task('watch-docker', () => {
       }
     }
   });
-});
+};
 
-gulp.task('default', ['watch-docker']);
+const serviceNames = ['ap', 'fabric'];
+serviceNames.forEach(s => gulp.task(`watch.docker.${s}`, watchPyDocker(s)));
+
+gulp.task('default', ['watch.docker.ap']);

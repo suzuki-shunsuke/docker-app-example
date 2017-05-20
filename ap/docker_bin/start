@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+source /source_script/util
+
+cd `dirname $0`/..
+
+erun pip install pip-tools
+erun pip-sync requirements.txt requirements.dev.txt
+
+erun python main.py

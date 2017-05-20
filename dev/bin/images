@@ -7,4 +7,4 @@ cd `dirname $0`/../..
 source source_script/docker-common
 source source_script/util
 
-list
+images

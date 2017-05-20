@@ -4,6 +4,4 @@ set -e
 
 source `dirname $0`/../source_script/util
 
-erun yarn
-
-erun docker-compose up -d
+erun docker-compose rm $@

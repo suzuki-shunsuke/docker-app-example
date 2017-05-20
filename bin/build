@@ -2,7 +2,7 @@
 
 set -e
 
-cd `dirname $0`/../..
+cd `dirname $0`/..
 
 source source_script/docker-common
 source source_script/util

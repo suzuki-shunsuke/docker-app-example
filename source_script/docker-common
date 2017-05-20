@@ -38,7 +38,7 @@ build() {
   erun docker build -f $AP_ENV/Dockerfile -t $IMAGE_PATH:${AP_ENV}-$TAG .
 }
 
-list() {
+images() {
   # docker images
   check_ap_env
   erun docker images $IMAGE_PATH:${AP_ENV}-*

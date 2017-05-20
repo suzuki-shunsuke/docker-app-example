@@ -7,9 +7,12 @@
   "author": "Suzuki Shunsuke <suzuki.shunsuke.1989@gmail.com>",
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-cli": "^1.3.0"
+    "gulp-cli": "^1.3.0",
+    "husky": "^0.13.3",
+    "validate-commit-msg": "^2.12.1"
   },
   "scripts": {
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "commitmsg": "validate-commit-msg"
   }
 }

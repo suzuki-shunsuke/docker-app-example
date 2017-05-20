@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+source /source_script/util
+
+cd `dirname $0`/..
+
+erun flake8 *.py

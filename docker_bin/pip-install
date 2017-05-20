@@ -2,8 +2,6 @@
 
 set -e
 
-WORKDIR=`dirname $0`/..
-
 CHANGE_FILE=$1
 
 pip-compile $CHANGE_FILE
