@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# docker -f <Dockerfile path> build -t <image path>:<tag> <context path>
+
+set -e
+
+cd `dirname $0`/..
+
+source source_script/var.sh
+source source_script/docker-common.sh
+source source_script/util.sh
+
+build $@

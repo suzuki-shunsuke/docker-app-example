@@ -1,0 +1,30 @@
+vagrant:
+  jenkins-slave:
+    params:
+      mem: 1024
+      user: vagrant
+    vms:
+      1:
+        ip: 192.168.33.10
+  ap:
+    params:
+      mem: 1024
+      user: vagrant
+    vms:
+      1:
+        ip: 192.168.33.20
+dev:
+  jump:
+    params:
+      user:
+    vms:
+      1:
+        ip:
+  ap:
+    params:
+      user:
+    vms:
+      1:
+        ip:
+      2:
+        ip:

@@ -1,0 +1,13 @@
+---
+- hosts: ap
+  # vars_files:
+  # - ../group_vars/all.yml
+  # - ../group_vars/ap.yml
+  roles:
+  - role: suzuki-shunsuke.docker-ce-centos
+    docker_centos_started: yes
+    docker_centos_enabled: yes
+    docker_centos_users:
+    - vagrant
+  - role: suzuki-shunsuke.docker-compose
+    docker_compose_version: 1.13.0

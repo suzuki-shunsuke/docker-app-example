@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -e
+
+source `dirname $0`/../source_script/util.sh
+
+
+if [ ${#ENV_NAME} -eq 0 ]; then
+  COMPOSE_FILE_NAME=docker-compose.yml
+else
+  COMPOSE_FILE=docker-compose.${ENV_NAME}.yml
+fi
+
+CMD=erun docker-compose -f `dirname $0`/../$COMPOSE_FILE stop
+
+echo $CMD
+
+if [ $# -le 1 ]; then
+  "$CMD $@"
+else
+  if [ ${#SERVICE_NAME} -eq 0 ]; then
+    echo "ERROR: SERVICE_NAME is not defined!"
+    exit 1
+  else if [ "$SERVICE_NAME" = "*" ]; then
+    "$CMD"
+  else
+    "$CMD $SERVICE_NAME"
+  fi
+fi

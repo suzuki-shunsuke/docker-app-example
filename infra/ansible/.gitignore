@@ -1,0 +1,13 @@
+.DS_Store
+*.retry
+*.pyc
+.direnv
+.cache
+.vagrant
+inventories/*
+!inventories/.keep
+sshcfg
+node_modules
+
+ssh-keys/*
+!ssh-keys/.keep

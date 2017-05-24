@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+pip-compile requirements.dev.in
+pip-compile requirements.in
+pip-sync requirements.txt requirements.dev.txt

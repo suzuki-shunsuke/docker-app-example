@@ -2,6 +2,6 @@
 
 set -e
 
-source `dirname $0`/../source_script/util
+source `dirname $0`/../source_script/util.sh
 
 erun docker-compose rm $@

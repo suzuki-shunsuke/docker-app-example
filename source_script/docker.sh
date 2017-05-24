@@ -6,10 +6,6 @@
 
 set -e
 
-REGISTRY=""
-D_USER=suzukishunsuke
-IMAGE=docker-gulp-example
-
 if [ ${#REGISTRY} -ne 0 ]; then
   if [ ${#D_USER} -ne 0 ]; then
     IMAGE_PATH=$REGISTRY/$D_USER/$IMAGE
@@ -24,6 +20,12 @@ else
   fi
 fi
 
+BASE_NAME=`basename $PWD`
+
+default_service_name() {
+  echo `basename $PWD`
+}
+
 build() {
   # docker build
   if [ $# -ne 1 ]; then
@@ -34,14 +36,24 @@ build() {
   check_ap_env
 
   TAG=$1
+  DOCKER_FILE=${DOCKER_FILE:-Dockerfile}
+  ENV_NAME=${DOCKER_FILE:-$BASE_NAME}
+
+  erun docker build -f $ENV_NAME/Dockerfile -t $IMAGE_PATH:${ENV_NAME}-$TAG .
+}
+
+_build() {
+  erun docker build -f $DOCKER_FILE -t $IMAGE_PATH:$TAG $CONTEXT_PATH
+}
+
+_images() {
   
-  erun docker build -f $AP_ENV/Dockerfile -t $IMAGE_PATH:${AP_ENV}-$TAG .
 }
 
 images() {
   # docker images
   check_ap_env
-  erun docker images $IMAGE_PATH:${AP_ENV}-*
+  erun docker images $IMAGE_PATH:${ENV_NAME}-*
 }
 
 push() {
@@ -54,5 +66,5 @@ push() {
 
   TAG=$1
 
-  erun docker push $IMAGE_PATH:${AP_ENV}-$TAG
+  erun docker push $IMAGE_PATH:${ENV_NAME}-$TAG
 }

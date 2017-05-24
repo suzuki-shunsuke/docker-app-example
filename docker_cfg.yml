@@ -1,0 +1,9 @@
+services:
+- scheduler
+- worker
+envs:
+- dev
+- prod
+registry: ""
+user: suzukishunsuke
+image: docker-app-example

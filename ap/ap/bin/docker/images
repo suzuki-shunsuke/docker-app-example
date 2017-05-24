@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+
+"""
+/ap/ap/bin/docker/images
+"""
+
+import os
+import sys
+
+REPO_ROOT = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..")
+sys.path.append(REPO_ROOT)
+
+from lib.docker.images import get_parser, cmd
+
+sys.path.pop()
+
+
+def main():
+    parser = get_parser(service="scheduler")
+    args = parser.parse_args()
+    sys.exit(cmd(args.service, args.env))
+
+
+if __name__ == "__main__":
+    main()
